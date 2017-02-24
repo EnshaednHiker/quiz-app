@@ -5,18 +5,22 @@
     <title>QuizTime</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
     <link href="main.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body>
-    <main class="quiz-container">
-        <h1>QuizTime</h1>
-
-        <button type="button">start quiz</button>
-
-
+        <header class="center">
+            <h1>QuizTime</h1>
+        <button   type="button">start quiz</button>
+        </header>
+    <main>
+        <div id="outer-div" class="center">
+            
+        
         <section>
-            <h2>Question 1</h2>
+            <h2>Question <span>1</span></h2>
             <p>What number...?</p>
             <div><span>A:</span><button type="button">34</button></div>
             <div><span>B:</span><button type="button">47</button></div>
@@ -25,16 +29,17 @@
         </section>
         <section>
             <h3>stats</h3>
-            <div>
-                <span>correct: 0</span>
+            <div class="stats-margin">
+               <p class="stats-margin">correct: <span>0</span></p>
             </div>
-            <div>
-                <span>incorrect: 0</span>
+            <div class="stats-margin">
+                <p class="stats-margin">incorrect: <span>0</span></p>
             </div>
-            <div>
-                <span>question 1 of 5</span>
+            <div class="stats-margin">
+                <p class="stats-margin">question <span>1</span> of 5</p>
             </div>
         </section>
+        </div>
     </main>
 </body>
 

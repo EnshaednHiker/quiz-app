@@ -1,21 +1,49 @@
 
-var quizObjects = {
-	question:"",
+var quizState = {
+	question:["What number is the fifteenth prime number?","According to the Bible how many miracles did Jesus perform?",
+        "How many state parks does South Carolina have?", "How many sentences does the Declaration of Independence have?",
+        "How many strings does a concert harp have?", "The tropics of Cancer and Capricorn are how many degrees apart?",
+         "Euler left so much material unpublished upon his death that it took St. Petersburg Academy how many years to finish printing all of his manuscripts?",
+         "How many presidential bunkers did Saddam Hussein have?","According to Ptolemy, how many constellations are there?",
+         "What is the dialing code for Norway?"],
 	answer: 47,
-	presentationAnswer:""
 }
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-/* 47 Answers:
-			"Forty-seven is the fifteenth prime number.",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Other full list of 47 facts:
+
+            "Forty-seven is the fifteenth prime number.",
             "Forty-seven is a safe prime.",
             "Forty-seven is the thirteenth supersingular prime.",
             "Forty-seven is the sixth Lucas prime.",
             "Forty-seven in binary is 00101111.",
             "The atomic number of silver is 47.",
             "The atomic mass of one of the naturally occurring stable isotopes of titanium is 47.",
-            "During the 2012 election, Mitt Romney claimed that 47 percent of Americans do not pay any income tax.",
+            "During the 2012 US presidential election, Mitt Romney claimed that 47 percent of Americans do not pay any income tax.",
             "Joe Menosky graduated from Pomona College in 1979 and became a writer on Star Trek: The Next Generation"
                     + "There he infected the other writers with his love of the number 47, and, as a result, the show often mentioned the number 47.",
             "According to the Bible, Jesus completed 47 miracles.",
@@ -56,4 +84,4 @@ function getRandomInt(min, max) {
             "Dr. Seuss published 47 books in his life time.",
             "Most coach buses have a passenger seating capacity of 47.",
             "The road running through Joshua Tree National Monument is 47 miles long."
-*/
+            */

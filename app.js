@@ -4,6 +4,9 @@ var quizObjects = {
 	answer: 47,
 	presentationAnswer:""
 }
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 /* 47 Answers:
 			"Forty-seven is the fifteenth prime number.",
             "Forty-seven is a safe prime.",

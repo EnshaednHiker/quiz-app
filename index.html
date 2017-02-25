@@ -13,21 +13,21 @@
 <body>
         <header class="center">
             <h1>QuizTime</h1>
-        <button   type="button">start quiz</button>
+        <button  id="js-quiz-control" type="button">start quiz</button>
         </header>
     <main>
-        <div id="outer-div" class="center">
+        <div id="outer-div" class="center hidden">
             
         
-        <section>
+        <section id = "js-question-section">
             <h2>Question <span>1</span></h2>
             <p>What number...?</p>
-            <div><span>A:</span><button type="button">34</button></div>
-            <div><span>B:</span><button type="button">47</button></div>
-            <div><span>C:</span><button type="button">103</button></div>
-            <div><span>D:</span><button type="button">102</button></div>
+            <div><span>A:</span><button id="answer-A" class="answer" type="button">34</button></div>
+            <div><span>B:</span><button id="answer-B" class="answer" type="button">47</button></div>
+            <div><span>C:</span><button id="answer-C" class="answer" type="button">103</button></div>
+            <div><span>D:</span><button id="answer-D" class="answer" type="button">102</button></div>
         </section>
-        <section>
+        <section id="js-stats-section">
             <h3>stats</h3>
             <div class="stats-margin">
                <p class="stats-margin">correct: <span>0</span></p>

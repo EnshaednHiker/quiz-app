@@ -65,9 +65,55 @@ function getQuiz (nQuestions) {
         }
         return arrayQuizInstance;
 }
+function getWrongAnswers (length){
+        var arrayWrongAnswers = [];
+        for (var i = 0; i < length * 3; i++){
+                arrayWrongAnswers.push(getRandomInt(1,500));
+        }
+        return arrayWrongAnswers;
+
+}
+
+
+function runApp(){
+var quiz = $(startQuiz);
+var quizWrongAnswers = getWrongAnswers(quiz.length);
+question(quiz[1],quizState.answer,quizWrongAnswers[0],quizWrongAnswers[1],quizWrongAnswers[3],)
+
+}
+$(runApp)
+
+function startQuiz (){
+$("#js-quiz-control").click(function(){
+        $("#outer-div").removeClass('hidden');
+        $("#js-quiz-control").addClass('hidden');
+        return getQuiz(5);
+});
+}
+
+function question (question, answer, element, wrongAnwer1, wrongAnswer2, wrongAnswer3, questionNumber){
+        return {
+                question: question,
+                answer: answer,
+                buildQuestion: function(){
+                        return  "<h2>Question <span>"+ questionNumber +"</span></h2>"+
+                                "<p>" + question + "</p>" +
+                                "<div><span>A:</span><button id="answer-A" class="answer" type="button">"34</button></div>
+                                <div><span>B:</span><button id="answer-B" class="answer" type="button">47</button></div>
+                                <div><span>C:</span><button id="answer-C" class="answer" type="button">103</button></div>
+                                <div><span>D:</span><button id="answer-D" class="answer" type="button">102</button></div>
+                }
+        }
+}
+
+
+
+
+
+
 
 function runQuiz (){
-        
+
 }
 
 

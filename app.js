@@ -1,4 +1,38 @@
 
+/*
+Requirements:
+
+Users start on a screen where they can click a button to start the quiz.
+
+Once the game is started, the user should be prompted through a series
+of at least 5 multiple choice questions which they can answer. 
+Questions are to be asked one after another, and the user should 
+only be able to view one question at a time.
+
+Users should not be able to skip questions.
+
+When viewing an individual question, the user should also 
+be able to see which question they're on (for instance, "7 out of 10")
+and their current score ("5 correct, 2 incorrect").
+
+When a user submits an answer to a question, they should first get 
+feedback on if their answer was correct or not. If it's incorrect,
+they should be shown the correct answer. Then they should be moved 
+along to the next question.
+
+After the user has completed the final question, they should be 
+shown their overall score (in other words, how many questions they
+got right out of the total questions asked) and be able to start a
+new game.
+*/
+
+//Here is where the questions and answer of the quiz is stored
+//the joke here is that the answer to every question is "47"
+//If I wanted this to be a more traditional quiz app, I would use
+//2-dimensional nested arrays, each inner array being 2 elements long,
+//element 0 always being the question with element 1 always being it's
+//corresponding answer
+
 var quizState = {
 	question:["What number is the fifteenth prime number?","According to the Bible how many miracles did Jesus perform?",
         "How many state parks does South Carolina have?", "How many sentences does the Declaration of Independence have?",
@@ -8,8 +42,32 @@ var quizState = {
          "What is the dialing code for Norway?"],
 	answer: 47,
 }
+
+//this function return a random integer between any two numbers
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+//this function creates randomly generated quiz based on how long we want
+//the quiz to be. the functions argument takes an integer representing the how
+//how many questions we want
+function getQuiz (nQuestions) {
+        var arrayQuestions = quizState.question.map(function(element){
+                return element;
+        });
+        var arrayQuizInstance = [];
+        var runTimes = quizState.question.length - nQuestions;
+        var randomElement = 0;
+        for (var i = 0; i < quizState.question.length - runTimes; i++ ){
+                randomElement = getRandomInt(quizState.question.length-i, 1);
+                arrayQuizInstance.push(arrayQuestions[randomElement]);
+                arrayQuestions.splice(randomElement,1);
+        }
+        return arrayQuizInstance;
+}
+
+function runQuiz (){
+        
 }
 
 

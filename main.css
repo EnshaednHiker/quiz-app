@@ -18,7 +18,7 @@ header{
     text-align: center;
     vertical-align: middle;
 }
-#outer-div{
+.outer-width{
     width: 400px;
 }
 .stats-margin{

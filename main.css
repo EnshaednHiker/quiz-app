@@ -14,24 +14,13 @@ html, body{
 }
 
 header{
-    height: 200px;
+    height: 150px;
     text-align: center;
     vertical-align: middle;
 }
 .outer-width{
     width: 400px;
 }
-.stats-margin{
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
 
-.incorrect{
-    color: red;
-}
-
-.correct{
-    color: green;
-}
 
 

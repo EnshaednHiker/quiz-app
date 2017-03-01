@@ -60,9 +60,7 @@ var Quiz = function (questions, container){
      this.quizStats =  $("<div id='stats'</div>") 
      this.container = container 
      buildQuiz.call(this, quizItems)
-     eventListeners.call(this,quizItems)
 
-         
      //set up turn the answers into radial button, so can only select one
      //way to get the data at the end of quiz, maybe a submit button to product results of quiz, right/wrong
      //figure out how to randomize
@@ -119,7 +117,7 @@ function buildQuiz(items){
         });
         this.container.append(self.quizElement)
         $(buildStats)
-        $(eventListeners) 
+        $(eventListeners(items))    
 }   
 
 function eventListeners (items){
@@ -136,7 +134,7 @@ function eventListeners (items){
         checkedAnswer = $(this).val();
     });
     $("form").on('click','.js-question-button',function(event){
-
+        $('.js-question-button').addClass("hidden");
         actualAnswer = $(this).closest("form").attr('data-answer');
     
         if (actualAnswer===checkedAnswer){
@@ -147,8 +145,15 @@ function eventListeners (items){
             $(this).closest(".question-section").delay(3000).queue('fx', function(){
                 $(this).closest(".question-section").addClass("hidden");
                 $(this).closest(".question-section").next(".question-section").removeClass("hidden");
+                $('.js-question-button').removeClass("hidden");
             });
             questionNumber++;
+             if (questionNumber === questionTotal){
+                setTimeout(function(){
+                $("#stats").append("<div><p>Thanks for playing! Click 'start quiz' to play a new game!</p></div>");
+                $("#js-quiz-control").removeClass("hidden");
+                },3000);
+    }
         }
         else {
             $(this).closest(".question-section").append("<p>Incorrect: " + checkedAnswer + " is the incorrect answer. The correct answer was "+actualAnswer+".</p>")
@@ -157,20 +162,20 @@ function eventListeners (items){
             $(this).closest(".question-section").delay(3000).queue('fx', function(){
                 $(this).closest(".question-section").addClass("hidden");
                 $(this).closest(".question-section").next(".question-section").removeClass("hidden");
+                $('.js-question-button').removeClass("hidden");
             });
             questionNumber++;
+             if (questionNumber === questionTotal){
+                setTimeout(function(){
+                $("#stats").append("<div><p>Thanks for playing! Click 'start quiz' to play a new game!</p></div>");
+                $("#js-quiz-control").removeClass("hidden");
+                },3000);
+}
         }
-        
-        
         $("#question-number").replaceWith("<span id='question-number'>"+questionNumber+"</span>");
             $(this).closest("form").next("form", function (){});
         });
-
-  if (questionTotal === questionNumber){
-          $(".js-stats-section").delay(4000).queue('fx', function(){
-                $(this).append("<p>Thanks for playing! Click 'start quiz' to play a new game!</p>");
-        });
-    }
+       
 }
 
  

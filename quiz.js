@@ -59,7 +59,10 @@ var Quiz = function (questions, container){
      this.quizElement = $("<div class='quiz'></div>")
      this.quizStats =  $("<div id='stats'</div>") 
      this.container = container 
-     buildQuiz.call(this, quizItems)    
+     buildQuiz.call(this, quizItems)
+     eventListeners.call(this,quizItems)
+
+         
      //set up turn the answers into radial button, so can only select one
      //way to get the data at the end of quiz, maybe a submit button to product results of quiz, right/wrong
      //figure out how to randomize
@@ -86,50 +89,22 @@ function randomizeOptions (array){
 }
 
 function buildQuestion (item, number){
-    var letter = "ABCD"
+    var letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     var randomAnswers = randomizeOptions(item.options);
-    var questionRenderItem =  "<section class = 'question-section'><h2>Question <span>"+ number +"</span></h2>"+
-        "<p>" + item.question + "</p><form class='answer-form'>";
+    var questionRenderItem =  "<section class = 'question-section '><h2>Question <span>"+ number +"</span></h2>"+
+        "<p>" + item.question + "</p>"
         //randomize getting questions, and randomize getting options
         for (var i = 0; i < item.options.length; i++){
-            questionRenderItem +="<div><input type='radio' class='answer' name='possible-answer' value='"+randomAnswers[i]+"' id='answer-'"+(i+1)+"'/><label for='answer "+letter.substring(i,1+i)+"'>"+letter.substring(i,1+i)+": "+randomAnswers[i]+"</label></div>";
-         }
+            
+            questionRenderItem +="<form class='answer-form' data-answer="+item.answer+"><div><input type='radio' class='answer' name='possible-answer' value='"+randomAnswers[i]+"' id='answer-'"+(i+1)+"'/><label for='answer "+letter.substring(i,1+i)+"'>"+letter.substring(i,1+i)+": "+randomAnswers[i]+"</label></div>";
+            $("form").attr('data-answer', item.answer);
+        }
          questionRenderItem +="<div><button type='button' class='js-question-button'>Submit Answer</button></div></form></section>"             
     return questionRenderItem  
 }
 
 function buildStats(items){
-    var questionNumber = 1
-    var questionTotal = items.length;
-    console.log(questionTotal);
-    var correct = 0;
-    var incorrect = 0;
-    var statsRenderItem = "<section class='js-stats-section'><h3>Stats</h3><div class='stats'><p id='correct'>correct: "+correct+"</p></div><div class='stats'><p id='incorrect'>incorrect: "+incorrect+"</p></div><div class='stats'><div><p>question <span id='question-number'>"+questionNumber+"</span> of "+questionTotal+"</p></div></div></section>";
-     var checkedAnswer = 0;
-    $("input[type='radio']").click(function(){
-        checkedAnswer = $(this).val();
-        console.log(checkedAnswer);
-    });
-    $("form").on('click','.js-question-button',function(event){
-        //event.preventDefault();  
-        if (checkedAnswer){
-            alert("Correct: " + checkedAnswer + " is the correct answer.")
-            correct++;
-            $("#correct").replaceWith("<p id='correct'>correct: "+correct+"</p>");
-            console.log(correct);
-        }
-        else {
-            alert("Incorrect: " + checkedAnswer + " is the incorrect answer.")
-            incorrect++;
-            $("#incorrect").replaceWith("<p id='incorrect'>incorrect: "+incorrect+"</p>");
-            console.log(incorrect);
-        }
-        questionNumber++;
-        $("#question-number").replaceWith("<span id='question-number'>"+questionNumber+"</span>");
-        console.log(questionTotal);
-    });
-    
-    return statsRenderItem;
+  return "<section class='js-stats-section'><h3>Stats</h3><div class='stats'><p id='correct'>correct: 0</p></div><div class='stats'><p id='incorrect'>incorrect: 0</p></div><div class='stats'><div><p>completed questions <span id='question-number'>0</span> of "+items.length+"</p></div></div></section>";
 }
 
 function buildQuiz(items){
@@ -140,15 +115,64 @@ function buildQuiz(items){
         this.container.append(self.quizStats)  
         //build quiz by looping through quizItems to construct HTML
         items.forEach(function(element, index){
-            if (element === 0){
             self.quizElement.append(self.buildQuestion(element, index+1))
-        }
-            else {
-                self.quizElement.append(self.buildQuestion(element, index+1))
-                self.quizElement.append()
-            }
-
         });
         this.container.append(self.quizElement)
-        $(buildStats) 
+        $(buildStats)
+        $(eventListeners) 
 }   
+
+function eventListeners (items){
+    var questionNumber = 0
+    var questionTotal = items.length;
+    console.log(questionTotal);
+    var correct = 0;
+    var incorrect = 0;
+    
+     var checkedAnswer = 0;
+     var actualAnswer = 0;
+    
+       $("input[type='radio']").click(function(){
+        checkedAnswer = $(this).val();
+    });
+    $("form").on('click','.js-question-button',function(event){
+
+        actualAnswer = $(this).closest("form").attr('data-answer');
+    
+        if (actualAnswer===checkedAnswer){
+            $(this).closest(".question-section").append("<p>Correct: " + checkedAnswer + " is the correct answer.</p>")
+            correct++;
+            
+            $("#correct").replaceWith("<p id='correct'>correct: "+correct+"</p>");
+            $(this).closest(".question-section").delay(3000).queue('fx', function(){
+                $(this).closest(".question-section").addClass("hidden");
+                $(this).closest(".question-section").next(".question-section").removeClass("hidden");
+            });
+            questionNumber++;
+        }
+        else {
+            $(this).closest(".question-section").append("<p>Incorrect: " + checkedAnswer + " is the incorrect answer. The correct answer was "+actualAnswer+".</p>")
+            incorrect++;
+            $("#incorrect").replaceWith("<p id='incorrect'>incorrect: "+incorrect+"</p>");
+            $(this).closest(".question-section").delay(3000).queue('fx', function(){
+                $(this).closest(".question-section").addClass("hidden");
+                $(this).closest(".question-section").next(".question-section").removeClass("hidden");
+            });
+            questionNumber++;
+        }
+        
+        
+        $("#question-number").replaceWith("<span id='question-number'>"+questionNumber+"</span>");
+            $(this).closest("form").next("form", function (){});
+        });
+
+  if (questionTotal === questionNumber){
+          $(".js-stats-section").delay(4000).queue('fx', function(){
+                $(this).append("<p>Thanks for playing! Click 'start quiz' to play a new game!</p>");
+        });
+    }
+}
+
+ 
+
+
